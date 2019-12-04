@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>hsed_web</contextName>
+
+    <springProperty scope="context" name="BASE_LOG_HOME" source="logging.path"/>
+    <springProperty scope="context" name="loglevel" source="logging.pattern.level"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+            by default -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS}[%level][%thread][%logger{108}]-%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- Perf4J logger Appender -->
+    <appender name="DailyAndSizeRollAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${BASE_LOG_HOME}/manager/manager.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${BASE_LOG_HOME}/manager/manager.%i.%d{yyyy-MM-dd}.log.zip
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 200MB -->
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>365</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS}[%level][%thread][%logger{108}]-%msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="requestAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${BASE_LOG_HOME}/request/request.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${BASE_LOG_HOME}/request/request.%i.%d{yyyy-MM-dd}.log.zip
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 200MB -->
+                <maxFileSize>200MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>365</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="WARN" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.springframework.cloud.netflix.zuul.filters.route.support.AbstractRibbonCommand" level="ERROR" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.netflix.discovery" level="WARN" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.apache.http" level="WARN" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.apache.zookeeper" level="WARN" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.springframework.data.redis.core.RedisConnectionUtils" level="WARN" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!-- 请求日志 -->
+    <logger name="com.zxgeo.maew.frame.zuul.filters.HsedResponseFilter" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="requestAppender"/>
+    </logger>
+
+    <root level="${loglevel}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DailyAndSizeRollAppender"/>
+    </root>
+</configuration>

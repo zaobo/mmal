@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_protal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_provider_db" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mmal_zuul" charset="UTF-8" />
+  </component>
+</project>

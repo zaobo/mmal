@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mmal_eureka/eureka.iml" filepath="$PROJECT_DIR$/mmal_eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_manager/manager.iml" filepath="$PROJECT_DIR$/mmal_manager/manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal.iml" filepath="$PROJECT_DIR$/mmal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_api/mmal_api.iml" filepath="$PROJECT_DIR$/mmal_api/mmal_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_common/mmal_common.iml" filepath="$PROJECT_DIR$/mmal_common/mmal_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_core/mmal_core.iml" filepath="$PROJECT_DIR$/mmal_core/mmal_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_protal/protal.iml" filepath="$PROJECT_DIR$/mmal_protal/protal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_provider_db/provider_db.iml" filepath="$PROJECT_DIR$/mmal_provider_db/provider_db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mmal_zuul/zuul.iml" filepath="$PROJECT_DIR$/mmal_zuul/zuul.iml" />
+    </modules>
+  </component>
+</project>
