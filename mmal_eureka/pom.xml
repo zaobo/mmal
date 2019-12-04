@@ -114,9 +114,8 @@
                         <imageTag>${project.version}</imageTag>
                     </imageTags>
                     <!-- 指定 Dockerfile 路径 -->
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <dockerHost>http://192.168.10.73:2375</dockerHost>  <!-- 指定仓库地址 -->
-                    <dockerDirectory></dockerDirectory>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <dockerHost>http://192.168.178.111:2375</dockerHost>  <!-- 指定仓库地址 -->
                     <resources>
                         <resource>                                             <!-- 指定资源文件 -->
                             <targetPath>/</targetPath>                         <!-- 指定要复制的目录路径，这里是当前目录 -->
