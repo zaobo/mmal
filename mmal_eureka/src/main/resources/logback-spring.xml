@@ -14,10 +14,10 @@
     </appender>
     <!-- Perf4J logger Appender -->
     <appender name="DailyAndSizeRollAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${BASE_LOG_HOME}/protal/protal.log</file>
+        <file>${BASE_LOG_HOME}/eureka/eureka.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${BASE_LOG_HOME}/protal/protal.%i.%d{yyyy-MM-dd}.log.zip
+            <fileNamePattern>${BASE_LOG_HOME}/eureka/eureka.%i.%d{yyyy-MM-dd}.log.zip
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

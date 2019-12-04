@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>hsed_web</contextName>
+    <contextName>mmal_web</contextName>
 
     <springProperty scope="context" name="BASE_LOG_HOME" source="logging.path"/>
     <springProperty scope="context" name="loglevel" source="logging.pattern.level"/>
