@@ -6,23 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="provider_db" />
+        <module name="mmal_api" />
         <module name="zuul" />
         <module name="manager" />
         <module name="mmal_common" />
         <module name="eureka" />
         <module name="mmal_core" />
-        <module name="mmal_api" />
+        <module name="provider_db" />
         <module name="protal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eureka" target="8" />
       <module name="manager" target="8" />
-      <module name="mmal" target="1.8" />
-      <module name="mmal_api" target="1.8" />
-      <module name="mmal_common" target="1.8" />
-      <module name="mmal_core" target="1.8" />
+      <module name="mmal" target="8" />
+      <module name="mmal_api" target="8" />
+      <module name="mmal_common" target="8" />
+      <module name="mmal_core" target="8" />
       <module name="protal" target="8" />
       <module name="provider_db" target="8" />
       <module name="zuul" target="8" />
