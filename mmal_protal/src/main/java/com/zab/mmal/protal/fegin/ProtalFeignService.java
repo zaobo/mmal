@@ -1,11 +1,15 @@
 package com.zab.mmal.protal.fegin;
 
 import com.zab.mmal.api.dtos.ProductDetails;
+import com.zab.mmal.api.entity.MmallCart;
 import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.common.commons.ReturnData;
+import com.zab.mmal.common.enums.SysCodeMsg;
 import com.zab.mmal.protal.fegin.dtos.ProtalFeignFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @FeignClient(value = "PROVIDERDB", path = "/provider/", fallback = ProtalFeignFallBack.class)
 public interface ProtalFeignService {
@@ -41,4 +45,32 @@ public interface ProtalFeignService {
     ReturnData pageProductByCondition(@RequestParam(value = "pageNo", required = false) Integer pageNo, @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                       @RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "categoryId", required = false) Integer categoryId,
                                       @RequestParam(value = "orderBy", required = false) String orderBy);
+
+    @GetMapping("listCart/{userId}")
+    ReturnData listCart(@PathVariable(value = "userId") Integer userId);
+
+    @PostMapping("addCart")
+    ReturnData addCart(@RequestBody MmallCart cart);
+
+    @PostMapping("updateCart")
+    ReturnData updateCart(@RequestBody MmallCart cart);
+
+    @PostMapping("deleteCart/{userId}")
+    ReturnData deleteCart(@PathVariable(value = "userId") Integer userId, @RequestBody List<Integer> productIds);
+
+    /**
+     * 全选
+     * 全不选
+     * 批量选
+     * 批量反选
+     */
+    @PostMapping("selectOrUnSelectCart/{userId}/{checked}")
+    ReturnData selectOrUnSelectCart(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "checked") Integer checked,
+                                       @RequestBody(required = false) List<Integer> productIds);
+
+    /**
+     * 查询当前用户的购物车里面的产品数量，如果一个产品有10个，那么数量就是10
+     */
+    @GetMapping("getCartProductCount/{userId}")
+    ReturnData getCartProductCount(@PathVariable(value = "checked") Integer userId);
 }

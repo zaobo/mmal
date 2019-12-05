@@ -38,7 +38,7 @@ public class MmallCart extends Model<MmallCart> {
     /**
      * 数量
      */
-    private Integer  quantity;
+    private Integer quantity;
 
     /**
      * 是否选择,1=已勾选,0=未勾选

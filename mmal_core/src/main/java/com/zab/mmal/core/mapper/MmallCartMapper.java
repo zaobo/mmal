@@ -2,10 +2,11 @@ package com.zab.mmal.core.mapper;
 
 import com.zab.mmal.api.entity.MmallCart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author zab
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MmallCartMapper extends BaseMapper<MmallCart> {
 
+    Integer getCartProductCount(Integer userId);
 }
