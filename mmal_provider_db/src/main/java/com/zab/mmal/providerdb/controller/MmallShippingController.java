@@ -1,14 +1,17 @@
 package com.zab.mmal.providerdb.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.zab.mmal.api.entity.MmallShipping;
+import com.zab.mmal.api.service.IMmallShippingService;
+import com.zab.mmal.common.commons.ReturnData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zab
@@ -17,5 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/provider/shipping")
 public class MmallShippingController {
+
+    @Autowired
+    private IMmallShippingService shippingService;
+
+    @PostMapping("addShipping")
+    public ReturnData addShipping(@RequestBody MmallShipping shipping) {
+        return new ReturnData(shippingService.addShipping(shipping));
+    }
+
+    @PostMapping("updateShipping")
+    public ReturnData updateShipping(@RequestBody MmallShipping shipping) {
+        return new ReturnData(shippingService.updateShipping(shipping));
+    }
+
+    @PostMapping("deleteShipping/{userId}/{shippingId}")
+    public ReturnData deleteShipping(@PathVariable Integer userId, @PathVariable Integer shippingId) {
+        return new ReturnData(shippingService.deleteShipping(userId, shippingId));
+    }
 
 }

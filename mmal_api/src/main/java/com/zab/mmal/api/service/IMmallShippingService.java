@@ -6,7 +6,7 @@ import com.zab.mmal.api.entity.MmallShipping;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author zab
@@ -14,4 +14,9 @@ import com.zab.mmal.api.entity.MmallShipping;
  */
 public interface IMmallShippingService extends IService<MmallShipping> {
 
+    Integer addShipping(MmallShipping shipping);
+
+    boolean deleteShipping(Integer userId, Integer shippingId);
+
+    boolean updateShipping(MmallShipping shipping);
 }

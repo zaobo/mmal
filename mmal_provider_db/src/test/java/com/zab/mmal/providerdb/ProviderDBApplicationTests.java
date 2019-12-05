@@ -3,8 +3,10 @@ package com.zab.mmal.providerdb;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.zab.mmal.api.entity.MmallCart;
+import com.zab.mmal.api.entity.MmallShipping;
 import com.zab.mmal.api.service.IMmallCartService;
 import com.zab.mmal.api.service.IMmallProductService;
+import com.zab.mmal.api.service.IMmallShippingService;
 import com.zab.mmal.common.utils.Base64Util;
 import com.zab.mmal.common.utils.MD5Utils;
 import org.junit.Test;
@@ -23,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 public class ProviderDBApplicationTests implements ApplicationContextAware {
 
     @Resource
-    private IMmallCartService mmallCartService;
+    private IMmallShippingService mmallShippingService;
 
     public static void main(String[] args) {
         try {
@@ -36,11 +38,9 @@ public class ProviderDBApplicationTests implements ApplicationContextAware {
 
     @Test
     public void contextLoads() {
-        MmallCart cart = new MmallCart();
-        cart.setUserId(4);
-        cart.setQuantity(2);
-        cart.setProductId(26);
-        System.err.println(JSON.toJSONString(mmallCartService.getCartProductCount(4)));
+        MmallShipping mmallShipping = new MmallShipping();
+        mmallShipping.setReceiverName("吉利");
+        System.err.println(JSON.toJSONString(mmallShippingService.addShipping(mmallShipping)));
 
     }
 
