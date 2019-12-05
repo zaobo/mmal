@@ -1,4 +1,4 @@
-package com.zab.mmal.core.config;
+package com.zab.mmal.common.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +13,8 @@ public class FtpConfiguration {
     private String serverIp;
     private String username;
     private String password;
+    @Value("${ftp.server.port}")
+    private String serverPort;
     @Value("${ftp.server.http.prefix}")
     private String serverHttpPrefix;
 

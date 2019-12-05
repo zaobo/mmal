@@ -1,24 +1,14 @@
 package com.zab.mmal.providerdb.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Lists;
 import com.zab.mmal.api.dtos.ProductDetails;
 import com.zab.mmal.api.entity.MmallProduct;
 import com.zab.mmal.api.service.IMmallProductService;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.enums.SysCodeMsg;
-import com.zab.mmal.common.exceptions.WrongArgumentException;
-import com.zab.mmal.common.utils.FTPUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * <p>
