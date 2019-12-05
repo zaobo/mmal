@@ -35,7 +35,7 @@ public class FTPUtil {
         boolean uploaded = true;
         FileInputStream fis = null;
         //连接FTP服务器
-        if (connectServer(ftpConfiguration.getServerIp(), 21, ftpConfiguration.getUsername(), ftpConfiguration.getPassword())) {
+        if (connectServer(ftpConfiguration.getServerIp(), ftpConfiguration.getServerPort(), ftpConfiguration.getUsername(), ftpConfiguration.getPassword())) {
             try {
                 ftpClient.changeWorkingDirectory(remotePath);
                 ftpClient.setBufferSize(1024);

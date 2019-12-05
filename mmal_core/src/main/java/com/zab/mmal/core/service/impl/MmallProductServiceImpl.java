@@ -147,7 +147,7 @@ public class MmallProductServiceImpl extends ServiceImpl<MmallProductMapper, Mma
 
         // 排序处理
         if (StringUtils.isNotBlank(orderBy)) {
-            if (Constant.PRICE_ASC_DESC.contains(orderBy)) {
+            if (Constant.PRICE_ASC_DESC.contains(orderBy.toLowerCase())) {
                 String[] arr = orderBy.split("_");
                 if (StringUtils.equalsIgnoreCase("asc", arr[1])) {
                     queryWrapper.orderByAsc(arr[0]);

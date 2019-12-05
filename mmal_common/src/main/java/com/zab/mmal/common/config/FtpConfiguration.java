@@ -14,7 +14,7 @@ public class FtpConfiguration {
     private String username;
     private String password;
     @Value("${ftp.server.port}")
-    private String serverPort;
+    private Integer serverPort;
     @Value("${ftp.server.http.prefix}")
     private String serverHttpPrefix;
 
