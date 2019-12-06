@@ -2,6 +2,7 @@ package com.zab.mmal.protal.fegin;
 
 import com.zab.mmal.api.dtos.ProductDetails;
 import com.zab.mmal.api.entity.MmallCart;
+import com.zab.mmal.api.entity.MmallShipping;
 import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.enums.SysCodeMsg;
@@ -66,11 +67,27 @@ public interface ProtalFeignService {
      */
     @PostMapping("selectOrUnSelectCart/{userId}/{checked}")
     ReturnData selectOrUnSelectCart(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "checked") Integer checked,
-                                       @RequestBody(required = false) List<Integer> productIds);
+                                    @RequestBody(required = false) List<Integer> productIds);
 
     /**
      * 查询当前用户的购物车里面的产品数量，如果一个产品有10个，那么数量就是10
      */
     @GetMapping("getCartProductCount/{userId}")
-    ReturnData getCartProductCount(@PathVariable(value = "checked") Integer userId);
+    ReturnData getCartProductCount(@PathVariable(value = "userId") Integer userId);
+
+    @PostMapping("addShipping")
+    public ReturnData addShipping(@RequestBody MmallShipping shipping);
+
+    @PostMapping("updateShipping")
+    public ReturnData updateShipping(@RequestBody MmallShipping shipping);
+
+    @PostMapping("deleteShipping/{userId}/{shippingId}")
+    public ReturnData deleteShipping(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "shippingId") Integer shippingId);
+
+    @GetMapping("getShipping/{userId}/{shippingId}")
+    public ReturnData getShipping(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "shippingId") Integer shippingId);
+
+    @PostMapping("pageShipping/{userId}")
+    public ReturnData pageShipping(@PathVariable(value = "userId") Integer userId, @RequestParam(value = "pageSize") Integer pageSize,
+                                   @RequestParam(value = "pageNo") Integer pageNo, @RequestBody(required = false) MmallShipping shipping);
 }

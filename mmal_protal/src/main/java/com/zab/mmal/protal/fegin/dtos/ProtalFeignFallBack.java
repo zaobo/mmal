@@ -2,6 +2,7 @@ package com.zab.mmal.protal.fegin.dtos;
 
 import com.zab.mmal.api.dtos.ProductDetails;
 import com.zab.mmal.api.entity.MmallCart;
+import com.zab.mmal.api.entity.MmallShipping;
 import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.enums.SysCodeMsg;
@@ -89,7 +90,32 @@ public class ProtalFeignFallBack implements ProtalFeignService {
 
     @Override
     public ReturnData getCartProductCount(Integer userId) {
-        return null;
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData addShipping(MmallShipping shipping) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData updateShipping(MmallShipping shipping) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData deleteShipping(Integer userId, Integer shippingId) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData getShipping(Integer userId, Integer shippingId) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData pageShipping(Integer userId, Integer pageSize, Integer pageNo, MmallShipping shipping) {
+        return new ReturnData(SysCodeMsg.FAIL);
     }
 
 }
