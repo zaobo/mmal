@@ -1,6 +1,7 @@
 package com.zab.mmal.api.service;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zab.mmal.api.entity.MmallShipping;
 
@@ -19,4 +20,8 @@ public interface IMmallShippingService extends IService<MmallShipping> {
     boolean deleteShipping(Integer userId, Integer shippingId);
 
     boolean updateShipping(MmallShipping shipping);
+
+    MmallShipping getShipping(Integer userId, Integer shippingId);
+
+    Page<MmallShipping> pageShipping(Integer userId, Integer pageSize, Integer pageNo, MmallShipping shipping);
 }

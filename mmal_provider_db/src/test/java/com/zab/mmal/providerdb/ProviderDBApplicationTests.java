@@ -40,7 +40,7 @@ public class ProviderDBApplicationTests implements ApplicationContextAware {
     public void contextLoads() {
         MmallShipping mmallShipping = new MmallShipping();
         mmallShipping.setReceiverName("吉利");
-        System.err.println(JSON.toJSONString(mmallShippingService.addShipping(mmallShipping)));
+        System.err.println(JSON.toJSONString(mmallShippingService.pageShipping(17, 10, 1, mmallShipping)));
 
     }
 

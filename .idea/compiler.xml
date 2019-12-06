@@ -6,23 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mmal_api" />
-        <module name="zuul" />
-        <module name="manager" />
-        <module name="mmal_common" />
         <module name="eureka" />
+        <module name="manager" />
+        <module name="mmal_api" />
+        <module name="mmal_common" />
         <module name="mmal_core" />
-        <module name="provider_db" />
         <module name="protal" />
+        <module name="provider_db" />
+        <module name="zuul" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eureka" target="8" />
       <module name="manager" target="8" />
-      <module name="mmal" target="8" />
-      <module name="mmal_api" target="8" />
-      <module name="mmal_common" target="8" />
-      <module name="mmal_core" target="8" />
+      <module name="mmal" target="1.8" />
+      <module name="mmal_api" target="1.8" />
+      <module name="mmal_common" target="1.8" />
+      <module name="mmal_core" target="1.8" />
       <module name="protal" target="8" />
       <module name="provider_db" target="8" />
       <module name="zuul" target="8" />
@@ -30,14 +30,14 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="eureka" options="-parameters" />
-      <module name="manager" options="-parameters" />
-      <module name="mmal_api" options="-parameters" />
-      <module name="mmal_common" options="-parameters" />
-      <module name="mmal_core" options="-parameters" />
-      <module name="protal" options="-parameters" />
-      <module name="provider_db" options="-parameters" />
-      <module name="zuul" options="-parameters" />
+      <module name="eureka" options="" />
+      <module name="manager" options="" />
+      <module name="mmal_api" options="" />
+      <module name="mmal_common" options="" />
+      <module name="mmal_core" options="" />
+      <module name="protal" options="" />
+      <module name="provider_db" options="" />
+      <module name="zuul" options="" />
     </option>
   </component>
 </project>

@@ -39,4 +39,15 @@ public class MmallShippingController {
         return new ReturnData(shippingService.deleteShipping(userId, shippingId));
     }
 
+    @PostMapping("getShipping/{userId}/{shippingId}")
+    public ReturnData getShipping(@PathVariable Integer userId, @PathVariable Integer shippingId) {
+        return new ReturnData(shippingService.getShipping(userId, shippingId));
+    }
+
+    @PostMapping("pageShipping/{userId}")
+    public ReturnData pageShipping(@PathVariable Integer userId, @RequestParam Integer pageSize,
+                                   @RequestParam Integer pageNo, @RequestBody(required = false) MmallShipping shipping) {
+        return new ReturnData(shippingService.pageShipping(userId, pageSize, pageNo, shipping));
+    }
+
 }
