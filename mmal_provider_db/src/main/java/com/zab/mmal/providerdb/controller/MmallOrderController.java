@@ -1,14 +1,16 @@
 package com.zab.mmal.providerdb.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zab.mmal.api.entity.MmallOrder;
+import com.zab.mmal.api.service.IMmallOrderService;
+import com.zab.mmal.common.commons.ReturnData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author zab
@@ -17,5 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/provider/order")
 public class MmallOrderController {
+
+    @Autowired
+    private IMmallOrderService orderService;
+
+    @GetMapping("pay/{userId}/{orderNo}/{path}")
+    public ReturnData pay(@PathVariable Integer userId, @PathVariable Long orderNo) {
+        QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("order_no", orderNo);
+        MmallOrder order = orderService.getOne(queryWrapper);
+        return new ReturnData(order);
+    }
 
 }

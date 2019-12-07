@@ -1,4 +1,4 @@
-package com.zab.mmal.manager.utils;
+package com.zab.mmal.common.utils;
 
 import com.zab.mmal.common.config.FtpConfiguration;
 import lombok.extern.slf4j.Slf4j;

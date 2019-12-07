@@ -32,6 +32,9 @@ public class ControllerExceptionHandler {
         if (ex instanceof WrongArgumentException || StringUtils.contains(ex.getMessage(), WrongArgumentException.class.getName()) || (null != ex.getCause() && ex.getCause() instanceof WrongArgumentException)) {
             code = SysCodeMsg.PARAM_IS_ERROR.getCode();
             msg = "请求参数有误," + ex.getMessage();
+        } else if (ex instanceof WrongArgumentException || StringUtils.contains(ex.getMessage(), WrongArgumentException.class.getName()) || (null != ex.getCause() && ex.getCause() instanceof WrongArgumentException)) {
+            code = SysCodeMsg.FAIL.getCode();
+            msg = "数据库数据有误," + ex.getMessage();
         } else if (ex instanceof NoAuthException || StringUtils.contains(ex.getMessage(), NoAuthException.class.getName()) || (null != ex.getCause() && ex.getCause() instanceof NoAuthException)) {
             success = false;
             code = SysCodeMsg.NOT_OPT_AUTH.getCode();

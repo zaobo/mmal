@@ -9,7 +9,7 @@ import com.zab.mmal.common.exceptions.WrongArgumentException;
 import com.zab.mmal.common.utils.JudgeUtil;
 import com.zab.mmal.common.config.FtpConfiguration;
 import com.zab.mmal.manager.feign.ManagerFeignService;
-import com.zab.mmal.manager.utils.FTPUtil;
+import com.zab.mmal.common.utils.FTPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
