@@ -1,9 +1,7 @@
 package com.zab.mmal.protal.fegin;
 
 import com.zab.mmal.api.dtos.ProductDetails;
-import com.zab.mmal.api.entity.MmallCart;
-import com.zab.mmal.api.entity.MmallShipping;
-import com.zab.mmal.api.entity.MmallUser;
+import com.zab.mmal.api.entity.*;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.protal.fegin.dtos.ProtalFeignFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -90,10 +88,19 @@ public interface ProtalFeignService {
     ReturnData pageShipping(@PathVariable(value = "userId") Integer userId, @RequestParam(value = "pageSize") Integer pageSize,
                             @RequestParam(value = "pageNo") Integer pageNo, @RequestBody(required = false) MmallShipping shipping);
 
-    @GetMapping("order/pay/{userId}/{orderNo}/{path}")
-    ReturnData pay(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+    @GetMapping("order/getOrder/{userId}/{orderNo}/{path}")
+    ReturnData getOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
 
     @GetMapping("orderitem/getOrderItemList/{userId}/{orderNo}")
     ReturnData getOrderItemList(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+
+    @GetMapping("order/getOrderByNo/{orderNo}")
+    ReturnData getOrderByNo(@PathVariable(value = "orderNo") Long orderNo);
+
+    @PostMapping("order/updateOrderStatus")
+    ReturnData updateOrderStatus(@RequestBody MmallOrder order);
+
+    @PostMapping("payinfo/addPayInfo")
+    ReturnData addPayInfo(@RequestBody MmallPayInfo payInfo);
 
 }

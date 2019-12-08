@@ -13,11 +13,16 @@ import com.alipay.demo.trade.utils.ZxingUtils;
 import com.google.common.collect.Lists;
 import com.zab.mmal.api.entity.MmallOrder;
 import com.zab.mmal.api.entity.MmallOrderItem;
+import com.zab.mmal.api.entity.MmallPayInfo;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.config.FtpConfiguration;
+import com.zab.mmal.common.enums.OrderSatus;
+import com.zab.mmal.common.enums.PayPlatform;
 import com.zab.mmal.common.enums.SysCodeMsg;
+import com.zab.mmal.common.enums.TradeStatus;
 import com.zab.mmal.common.exceptions.WrongDataException;
 import com.zab.mmal.common.utils.BigDecimalUtil;
+import com.zab.mmal.common.utils.DateTimeUtil;
 import com.zab.mmal.common.utils.FTPUtil;
 import com.zab.mmal.common.utils.JudgeUtil;
 import com.zab.mmal.protal.fegin.ProtalFeignService;
@@ -30,14 +35,18 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 订单流程
+ */
 @Slf4j
 @Component
-public class DoPayClient {
+public class DoPayFlow {
 
     @Value("${alipay.call.back}")
     private String callBack;
@@ -141,7 +150,7 @@ public class DoPayClient {
                 // 需要修改为运行机器上的路径
                 // 细节path没有/
                 String qrPath = String.format(path + "/qr-%s.png", response.getOutTradeNo());
-                String qtFileName = String.format("/qr-%s.png", response.getOutTradeNo());
+                String qtFileName = String.format("qr-%s.png", response.getOutTradeNo());
                 ZxingUtils.getQRCodeImge(response.getQrCode(), 256, qrPath);
 
                 File targetFile = new File(path, qtFileName);
@@ -172,6 +181,53 @@ public class DoPayClient {
         resultMap.put("qrUrl", qrUrl);
         resultMap.put("msg", msg);
         return resultMap;
+    }
+
+    public ReturnData callBack(Map<String, String> params) {
+        Long orderNo = Long.parseLong(params.get("out_trade_no"));
+        String tradeNo = params.get("trade_no");
+        // 支付宝交易状态
+        String tradeStatus = params.get("trade_status");
+
+        ReturnData data = protalFeignService.getOrderByNo(orderNo);
+        if (JudgeUtil.isDBEq(data.getCode(), SysCodeMsg.SUCCESS.getCode())) {
+            return new ReturnData(SysCodeMsg.FAIL.getCode(), "系统出错，查询订单失败");
+        }
+
+        MmallOrder order = (MmallOrder) data.getData();
+        if (null == order) {
+            return new ReturnData(SysCodeMsg.FAIL.getCode(), "不是本系统订单:" + orderNo + "，回调忽略");
+        }
+
+        // todo 校验金额
+        BigDecimal payment = order.getPayment();
+        BigDecimal alipayment = new BigDecimal(params.get("total_amount"));
+        if (!JudgeUtil.isDBEq(BigDecimalUtil.sub(payment.doubleValue(), alipayment.doubleValue()).intValue(), 0)) {
+            return new ReturnData(SysCodeMsg.FAIL.getCode(), "金额不一致，不是本系统订单:" + orderNo + "，回调忽略");
+        }
+
+        if (order.getStatus() >= OrderSatus.PAID.getCode()) {
+            return new ReturnData("支付宝重复调用");
+        }
+
+        if (TradeStatus.TRADE_SUCCESS.name().equalsIgnoreCase(tradeStatus)) {
+            // 如果是交易成功了
+            MmallOrder updateOrder = new MmallOrder();
+            updateOrder.setOrderNo(order.getOrderNo());
+            updateOrder.setStatus(OrderSatus.PAID.getCode());
+            updateOrder.setPaymentTime(DateTimeUtil.strToDate(params.get("gmt_payment")));
+            protalFeignService.updateOrderStatus(updateOrder);
+        }
+
+        // 创建支付信息
+        MmallPayInfo payInfo = new MmallPayInfo();
+        payInfo.setOrderNo(orderNo);
+        payInfo.setUserId(order.getUserId());
+        payInfo.setPayPlatform(PayPlatform.ALIPAY.getCode());
+        payInfo.setPlatformNumber(tradeNo);
+        payInfo.setPlatformStatus(tradeStatus);
+
+        return protalFeignService.addPayInfo(payInfo);
     }
 
     // 简单打印应答

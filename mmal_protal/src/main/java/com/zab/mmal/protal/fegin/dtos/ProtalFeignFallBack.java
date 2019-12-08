@@ -1,9 +1,7 @@
 package com.zab.mmal.protal.fegin.dtos;
 
 import com.zab.mmal.api.dtos.ProductDetails;
-import com.zab.mmal.api.entity.MmallCart;
-import com.zab.mmal.api.entity.MmallShipping;
-import com.zab.mmal.api.entity.MmallUser;
+import com.zab.mmal.api.entity.*;
 import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.enums.SysCodeMsg;
 import com.zab.mmal.protal.fegin.ProtalFeignService;
@@ -119,7 +117,7 @@ public class ProtalFeignFallBack implements ProtalFeignService {
     }
 
     @Override
-    public ReturnData pay(Integer userId, Long orderNo) {
+    public ReturnData getOrder(Integer userId, Long orderNo) {
         return new ReturnData(SysCodeMsg.FAIL);
     }
 
@@ -127,5 +125,21 @@ public class ProtalFeignFallBack implements ProtalFeignService {
     public ReturnData getOrderItemList(Integer userId, Long orderNo) {
         return new ReturnData(SysCodeMsg.FAIL);
     }
+
+    @Override
+    public ReturnData getOrderByNo(Long orderNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData updateOrderStatus(MmallOrder order) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData addPayInfo(MmallPayInfo payInfo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
 
 }

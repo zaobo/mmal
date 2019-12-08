@@ -2,6 +2,7 @@ package com.zab.mmal.providerdb.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zab.mmal.api.entity.MmallOrder;
 import com.zab.mmal.api.service.IMmallOrderService;
 import com.zab.mmal.common.commons.ReturnData;
@@ -23,13 +24,27 @@ public class MmallOrderController {
     @Autowired
     private IMmallOrderService orderService;
 
-    @GetMapping("pay/{userId}/{orderNo}/{path}")
-    public ReturnData pay(@PathVariable Integer userId, @PathVariable Long orderNo) {
+    @GetMapping("pay/{userId}/{orderNo}")
+    public ReturnData getOrder(@PathVariable Integer userId, @PathVariable Long orderNo) {
         QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("order_no", orderNo);
         MmallOrder order = orderService.getOne(queryWrapper);
         return new ReturnData(order);
+    }
+
+    @GetMapping("getOrderByNo/{orderNo}")
+    public ReturnData getOrderByNo(@PathVariable(value = "orderNo") Long orderNo) {
+        QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_no", orderNo);
+        return new ReturnData(orderService.getOne(queryWrapper));
+    }
+
+    @PostMapping("updateOrderStatus")
+    public ReturnData updateOrderStatus(@RequestBody MmallOrder order) {
+        UpdateWrapper<MmallOrder> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("order_no", order.getOrderNo());
+        return new ReturnData(orderService.update(order, updateWrapper));
     }
 
 }
