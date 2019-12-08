@@ -24,20 +24,19 @@ public class MmallOrderController {
     @Autowired
     private IMmallOrderService orderService;
 
-    @GetMapping("pay/{userId}/{orderNo}")
-    public ReturnData getOrder(@PathVariable Integer userId, @PathVariable Long orderNo) {
+    @GetMapping("getOrder/{userId}/{orderNo}")
+    public MmallOrder getOrder(@PathVariable Integer userId, @PathVariable Long orderNo) {
         QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("order_no", orderNo);
-        MmallOrder order = orderService.getOne(queryWrapper);
-        return new ReturnData(order);
+        return orderService.getOne(queryWrapper);
     }
 
     @GetMapping("getOrderByNo/{orderNo}")
-    public ReturnData getOrderByNo(@PathVariable(value = "orderNo") Long orderNo) {
+    public MmallOrder getOrderByNo(@PathVariable(value = "orderNo") Long orderNo) {
         QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("order_no", orderNo);
-        return new ReturnData(orderService.getOne(queryWrapper));
+        return orderService.getOne(queryWrapper);
     }
 
     @PostMapping("updateOrderStatus")

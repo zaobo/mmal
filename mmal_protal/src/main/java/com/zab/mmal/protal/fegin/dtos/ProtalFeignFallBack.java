@@ -117,18 +117,18 @@ public class ProtalFeignFallBack implements ProtalFeignService {
     }
 
     @Override
-    public ReturnData getOrder(Integer userId, Long orderNo) {
-        return new ReturnData(SysCodeMsg.FAIL);
+    public MmallOrder getOrder(Integer userId, Long orderNo) {
+        return null;
     }
 
     @Override
-    public ReturnData getOrderItemList(Integer userId, Long orderNo) {
-        return new ReturnData(SysCodeMsg.FAIL);
+    public List<MmallOrderItem> getOrderItemList(Integer userId, Long orderNo) {
+        return null;
     }
 
     @Override
-    public ReturnData getOrderByNo(Long orderNo) {
-        return new ReturnData(SysCodeMsg.FAIL);
+    public MmallOrder getOrderByNo(Long orderNo) {
+        return null;
     }
 
     @Override

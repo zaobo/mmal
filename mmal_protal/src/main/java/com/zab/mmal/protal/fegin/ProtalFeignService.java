@@ -89,13 +89,13 @@ public interface ProtalFeignService {
                             @RequestParam(value = "pageNo") Integer pageNo, @RequestBody(required = false) MmallShipping shipping);
 
     @GetMapping("order/getOrder/{userId}/{orderNo}/{path}")
-    ReturnData getOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+    MmallOrder getOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
 
     @GetMapping("orderitem/getOrderItemList/{userId}/{orderNo}")
-    ReturnData getOrderItemList(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+    List<MmallOrderItem> getOrderItemList(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
 
     @GetMapping("order/getOrderByNo/{orderNo}")
-    ReturnData getOrderByNo(@PathVariable(value = "orderNo") Long orderNo);
+    MmallOrder getOrderByNo(@PathVariable(value = "orderNo") Long orderNo);
 
     @PostMapping("order/updateOrderStatus")
     ReturnData updateOrderStatus(@RequestBody MmallOrder order);

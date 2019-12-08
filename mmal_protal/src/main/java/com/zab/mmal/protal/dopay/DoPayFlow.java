@@ -94,11 +94,10 @@ public class DoPayFlow {
         String timeoutExpress = "120m";
 
         // 查询系统订单明细
-        ReturnData returnData = protalFeignService.getOrderItemList(order.getUserId(), order.getOrderNo());
-        if (JudgeUtil.isDBEq(returnData.getCode(), SysCodeMsg.SUCCESS.getCode())) {
-            throw new WrongDataException("该订单没有明细，无法支付:{}", outTradeNo);
+        List<MmallOrderItem> orderItemList = protalFeignService.getOrderItemList(order.getUserId(), order.getOrderNo());
+        if (JudgeUtil.isEmpty(orderItemList)) {
+            throw new WrongDataException("没有对应的订单明细:{}", order.getOrderNo());
         }
-        List<MmallOrderItem> orderItemList = (List<MmallOrderItem>) returnData.getData();
 
         // 商品明细列表，需填写购买商品详细信息，
         List<GoodsDetail> goodsDetailList = new ArrayList<GoodsDetail>();
@@ -164,7 +163,6 @@ public class DoPayFlow {
                 qrUrl = ftpConfiguration.getServerHttpPrefix() + targetFile.getName();
                 msg = "支付宝预下单成功!!!";
                 log.info("filePath:" + qrPath);
-                return resultMap;
             case FAILED:
                 msg = "支付宝预下单失败!!!";
                 log.error("支付宝预下单失败!!!");
@@ -189,12 +187,7 @@ public class DoPayFlow {
         // 支付宝交易状态
         String tradeStatus = params.get("trade_status");
 
-        ReturnData data = protalFeignService.getOrderByNo(orderNo);
-        if (JudgeUtil.isDBEq(data.getCode(), SysCodeMsg.SUCCESS.getCode())) {
-            return new ReturnData(SysCodeMsg.FAIL.getCode(), "系统出错，查询订单失败");
-        }
-
-        MmallOrder order = (MmallOrder) data.getData();
+        MmallOrder order = protalFeignService.getOrderByNo(orderNo);
         if (null == order) {
             return new ReturnData(SysCodeMsg.FAIL.getCode(), "不是本系统订单:" + orderNo + "，回调忽略");
         }

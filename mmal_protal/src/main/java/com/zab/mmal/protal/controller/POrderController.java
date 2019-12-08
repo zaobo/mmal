@@ -8,7 +8,6 @@ import com.zab.mmal.common.commons.ReturnData;
 import com.zab.mmal.common.config.SessionAttribute;
 import com.zab.mmal.common.enums.OrderSatus;
 import com.zab.mmal.common.enums.SysCodeMsg;
-import com.zab.mmal.common.utils.JudgeUtil;
 import com.zab.mmal.protal.alipay.config.Configs;
 import com.zab.mmal.protal.dopay.DoPayFlow;
 import com.zab.mmal.protal.fegin.ProtalFeignService;
@@ -37,12 +36,7 @@ public class POrderController {
     @GetMapping("pay/{orderNo}")
     public ReturnData pay(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        ReturnData returnData = protalFeignService.getOrder(currentUser.getId(), orderNo);
-        if (JudgeUtil.isDBEq(returnData.getCode(), SysCodeMsg.SUCCESS.getCode())) {
-            return new ReturnData(SysCodeMsg.FAIL.getCode(), "系统出错，支付失败");
-        }
-
-        MmallOrder order = (MmallOrder) returnData.getData();
+        MmallOrder order = protalFeignService.getOrder(currentUser.getId(), orderNo);
         if (null == order) {
             return new ReturnData(SysCodeMsg.FAIL.getCode(), "没有查询到该订单:" + orderNo);
         }
@@ -90,12 +84,8 @@ public class POrderController {
     @GetMapping("getOrderPayStatus/{orderNo}")
     public ReturnData getOrderPayStatus(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        ReturnData returnData = protalFeignService.getOrder(currentUser.getId(), orderNo);
-        if (JudgeUtil.isDBEq(returnData.getCode(), SysCodeMsg.SUCCESS.getCode())) {
-            return new ReturnData(SysCodeMsg.FAIL.getCode(), "系统出错，查询失败");
-        }
+        MmallOrder order = protalFeignService.getOrder(currentUser.getId(), orderNo);
 
-        MmallOrder order = (MmallOrder) returnData.getData();
         if (null == order) {
             return new ReturnData(SysCodeMsg.FAIL.getCode(), "没有查询到该订单:" + orderNo);
         }
