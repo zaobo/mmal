@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="provider_db" />
+        <module name="mmal_api" />
         <module name="zuul" />
         <module name="manager" />
         <module name="mmal_common" />
         <module name="eureka" />
         <module name="mmal_core" />
-        <module name="mmal_api" />
+        <module name="provider_db" />
         <module name="protal" />
       </profile>
     </annotationProcessing>
@@ -35,7 +35,7 @@
       <module name="mmal_api" options="-parameters" />
       <module name="mmal_common" options="-parameters" />
       <module name="mmal_core" options="-parameters" />
-      <module name="protal" options="-parameters -extdirs E:\mmal\mmal_protal/src/main/resources/lib" />
+      <module name="protal" options="-parameters" />
       <module name="provider_db" options="-parameters" />
       <module name="zuul" options="-parameters" />
     </option>

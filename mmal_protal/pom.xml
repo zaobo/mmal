@@ -77,6 +77,10 @@
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -108,10 +112,6 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
-                    </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>

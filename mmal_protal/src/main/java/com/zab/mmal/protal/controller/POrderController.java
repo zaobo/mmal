@@ -2,7 +2,6 @@ package com.zab.mmal.protal.controller;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.demo.trade.config.Configs;
 import com.zab.mmal.api.entity.MmallOrder;
 import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.common.commons.ReturnData;
@@ -10,6 +9,7 @@ import com.zab.mmal.common.config.SessionAttribute;
 import com.zab.mmal.common.enums.OrderSatus;
 import com.zab.mmal.common.enums.SysCodeMsg;
 import com.zab.mmal.common.utils.JudgeUtil;
+import com.zab.mmal.protal.alipay.config.Configs;
 import com.zab.mmal.protal.dopay.DoPayFlow;
 import com.zab.mmal.protal.fegin.ProtalFeignService;
 import lombok.extern.slf4j.Slf4j;
