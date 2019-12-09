@@ -13,10 +13,7 @@ import com.zab.mmal.protal.dopay.DoPayFlow;
 import com.zab.mmal.protal.fegin.ProtalFeignService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -51,7 +48,7 @@ public class POrderController {
      * @param request
      * @return
      */
-    @GetMapping("alipayCallback")
+    @RequestMapping("alipayCallback")
     public ReturnData alipayCallback(HttpServletRequest request) {
         Map<String, String> params = new HashMap<>();
         Map<String, String[]> paramsMaP = request.getParameterMap();

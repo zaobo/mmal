@@ -9,6 +9,7 @@ import com.zab.mmal.api.service.IMmallProductService;
 import com.zab.mmal.api.service.IMmallShippingService;
 import com.zab.mmal.common.utils.Base64Util;
 import com.zab.mmal.common.utils.MD5Utils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
@@ -29,6 +30,10 @@ public class ProviderDBApplicationTests implements ApplicationContextAware {
 
     public static void main(String[] args) {
         try {
+            String s = "/service/order/alipayCallback";
+            String path = "/service/order/alipayCallback&version=1.0&app_id=2016101500695336&sign_type=RSA2&timestamp=2019-12-09";
+            System.err.println(StringUtils.contains(path, s));
+
             System.err.println(MD5Utils.MD5EncodeUtf8("zab_123"));
             System.err.println(Base64Util.strEncode("zab_123"));
         } catch (UnsupportedEncodingException e) {

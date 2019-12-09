@@ -57,7 +57,7 @@ public class LoginFilter extends ZuulFilter {
             List<String> list = this.getWhiteList();
             if (!JudgeUtil.isEmpty(list)) {
                 for (String pre : list) {
-                    if (path.matches(pre)) {
+                    if (StringUtils.contains(path.toLowerCase(), pre.toLowerCase())) {
                         //能匹配上正则，就是在白名单中，不需要拦截
                         return false;
                     }
