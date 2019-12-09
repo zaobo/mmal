@@ -38,4 +38,15 @@ public interface ManagerFeignService {
     @GetMapping("product/pageProduct")
     ReturnData pageProduct(@RequestParam(value = "pageNo", required = false) Integer pageNo, @RequestParam(value = "pageSize", required = false) Integer pageSize,
                            @RequestParam(value = "productName", required = false) String productName, @RequestParam(value = "productId", required = false) Integer productId);
+
+    @GetMapping("order/getOrderDetails/{orderNo}")
+    ReturnData getOrderDetails(@RequestParam(required = false, value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+
+    @GetMapping("order/pageOrder")
+    ReturnData pageOrder(@RequestParam(required = false, value = "userId") Integer userId, @RequestParam(value = "pageSize") Integer pageSize,
+                         @RequestParam(value = "pageNo") Integer pageNo);
+
+    @GetMapping("order/sendGoods/{orderNo}")
+    ReturnData sendGoods(@PathVariable(value = "orderNo") Long orderNo);
+
 }

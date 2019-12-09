@@ -2,6 +2,7 @@ package com.zab.mmal.core.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zab.mmal.api.dtos.OrderItemVo;
 import com.zab.mmal.api.dtos.OrderProductVo;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -139,20 +141,81 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
     @Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
     public OrderVo getOrderDetails(Integer userId, Long orderNo) {
         QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userId);
+        if (null != userId) {
+            queryWrapper.eq("user_id", userId);
+        }
         queryWrapper.eq("order_no", orderNo);
         MmallOrder order = getOne(queryWrapper);
         if (null == order) {
-            throw new WrongArgumentException("用户:{}的订单:{}不存在", userId, orderNo);
+            throw new WrongArgumentException("订单:{}不存在", orderNo);
         }
 
         // 查询订单明细
         QueryWrapper<MmallOrderItem> queryOrderItem = new QueryWrapper<>();
-        queryOrderItem.eq("user_id", userId);
+        if (null != userId) {
+            queryOrderItem.eq("user_id", userId);
+        }
         queryOrderItem.eq("order_no", orderNo);
         List<MmallOrderItem> orderItemList = orderItemMapper.selectList(queryOrderItem);
 
         return assembleOrderVo(order, orderItemList);
+    }
+
+    @Transactional(readOnly = true, propagation = Propagation.NOT_SUPPORTED)
+    @Override
+    public Page<OrderVo> pageOrder(Integer userId, Integer pageSize, Integer pageNo) {
+        QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
+        if (null != userId) {
+            queryWrapper.eq("user_id", userId);
+        }
+        Page page = new Page(pageNo, pageSize);
+        page.setDesc("create_time");
+        Page<MmallOrder> orderPage = (Page<MmallOrder>) page(page, queryWrapper);
+        List<OrderVo> orderVoList = assembleOrderVoList(userId, orderPage.getRecords());
+
+        Page<OrderVo> orderVoPage = new Page<>();
+        orderVoPage.setRecords(orderVoList);
+        orderVoPage.setSize(orderPage.getSize());
+        orderVoPage.setTotal(orderPage.getTotal());
+        orderVoPage.setCurrent(orderPage.getCurrent());
+        orderVoPage.setPages(orderPage.getPages());
+        return orderVoPage;
+    }
+
+    @Override
+    @Transactional
+    public boolean sendGoods(Long orderNo) {
+        QueryWrapper<MmallOrder> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_no", orderNo);
+        MmallOrder order = getOne(queryWrapper);
+        if (null == order) {
+            throw new WrongArgumentException("订单不存在:{}", orderNo);
+        }
+
+        if (JudgeUtil.isDBEq(order.getStatus(), OrderSatus.PAID.getCode())) {
+            order.setStatus(OrderSatus.SHIPPED.getCode());
+            Date date = new Date();
+            order.setSendTime(date);
+            order.setCreateTime(date);
+            return updateById(order);
+        }
+        return false;
+    }
+
+    private List<OrderVo> assembleOrderVoList(Integer userId, List<MmallOrder> orderList) {
+        List<OrderVo> orderVoList = new LinkedList<>();
+        for (MmallOrder order : orderList) {
+            QueryWrapper<MmallOrderItem> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("order_no", order.getOrderNo());
+            if (null != userId) {
+                queryWrapper.eq("user_id", userId);
+            }
+            List<MmallOrderItem> orderItemList = orderItemMapper.selectList(queryWrapper);
+            OrderVo orderVo = assembleOrderVo(order, orderItemList);
+            orderVoList.add(orderVo);
+        }
+
+        return orderVoList;
     }
 
     private OrderVo assembleOrderVo(MmallOrder order, List<MmallOrderItem> orderItemList) {

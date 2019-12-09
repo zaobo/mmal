@@ -153,4 +153,11 @@ public class POrderController {
         return new ReturnData(protalFeignService.getOrderDetails(currentUser.getId(), orderNo));
     }
 
+    @GetMapping("pageOrder")
+    public ReturnData pageOrder(HttpServletRequest request, @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                @RequestParam(required = false, defaultValue = "1") Integer pageNo) {
+        MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
+        return new ReturnData(protalFeignService.pageOrder(currentUser.getId(), pageSize, pageNo));
+    }
+
 }

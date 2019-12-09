@@ -1,6 +1,7 @@
 package com.zab.mmal.api.service;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zab.mmal.api.dtos.OrderProductVo;
 import com.zab.mmal.api.dtos.OrderVo;
@@ -23,4 +24,8 @@ public interface IMmallOrderService extends IService<MmallOrder> {
     OrderProductVo getOrderCartProduct(Integer userId);
 
     OrderVo getOrderDetails(Integer userId, Long orderNo);
+
+    Page<OrderVo> pageOrder(Integer userId, Integer pageSize, Integer pageNo);
+
+    boolean sendGoods(Long orderNo);
 }

@@ -63,9 +63,20 @@ public class MmallOrderController {
         return new ReturnData(orderService.getOrderCartProduct(userId));
     }
 
-    @GetMapping("getOrderDetails/{userId}/{orderNo}")
-    public ReturnData getOrderDetails(@PathVariable Integer userId, @PathVariable Long orderNo) {
+    @GetMapping("getOrderDetails/{orderNo}")
+    public ReturnData getOrderDetails(@RequestParam(required = false) Integer userId, @PathVariable Long orderNo) {
         return new ReturnData(orderService.getOrderDetails(userId, orderNo));
+    }
+
+    @GetMapping("pageOrder")
+    public ReturnData pageOrder(@RequestParam(required = false) Integer userId, @RequestParam Integer pageSize,
+                                @RequestParam Integer pageNo) {
+        return new ReturnData(orderService.pageOrder(userId, pageSize, pageNo));
+    }
+
+    @PostMapping("sendGoods/{orderNo}")
+    public ReturnData sendGoods(@PathVariable Long orderNo) {
+        return new ReturnData(orderService.sendGoods(orderNo));
     }
 
 }

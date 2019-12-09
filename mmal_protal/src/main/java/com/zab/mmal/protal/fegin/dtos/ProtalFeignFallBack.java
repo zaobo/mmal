@@ -161,5 +161,10 @@ public class ProtalFeignFallBack implements ProtalFeignService {
         return new ReturnData(SysCodeMsg.FAIL);
     }
 
+    @Override
+    public ReturnData pageOrder(Integer userId, Integer pageSize, Integer pageNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
 
 }

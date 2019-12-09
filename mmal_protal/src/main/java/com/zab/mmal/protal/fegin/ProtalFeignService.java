@@ -113,7 +113,11 @@ public interface ProtalFeignService {
     @GetMapping("order/getOrderCartProduct/{userId}")
     ReturnData getOrderCartProduct(@PathVariable Integer userId);
 
-    @GetMapping("order/getOrderDetails/{userId}/{orderNo}")
-    ReturnData getOrderDetails(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+    @GetMapping("order/getOrderDetails/{orderNo}")
+    ReturnData getOrderDetails(@RequestParam(required = false, value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+
+    @GetMapping("order/pageOrder")
+    ReturnData pageOrder(@RequestParam(required = false, value = "userId") Integer userId, @RequestParam(value = "pageSize") Integer pageSize,
+                         @RequestParam(value = "pageNo") Integer pageNo);
 
 }

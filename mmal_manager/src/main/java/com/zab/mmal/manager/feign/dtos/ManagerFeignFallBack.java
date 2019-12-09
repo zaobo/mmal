@@ -55,4 +55,19 @@ public class ManagerFeignFallBack implements ManagerFeignService {
         return new ReturnData(SysCodeMsg.FAIL);
     }
 
+    @Override
+    public ReturnData getOrderDetails(Integer userId, Long orderNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData pageOrder(Integer userId, Integer pageSize, Integer pageNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData sendGoods(Long orderNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
 }
