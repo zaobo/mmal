@@ -163,6 +163,7 @@ public class DoPayFlow {
                 qrUrl = ftpConfiguration.getServerHttpPrefix() + targetFile.getName();
                 msg = "支付宝预下单成功!!!";
                 log.info("filePath:" + qrPath);
+                break;
             case FAILED:
                 msg = "支付宝预下单失败!!!";
                 log.error("支付宝预下单失败!!!");
