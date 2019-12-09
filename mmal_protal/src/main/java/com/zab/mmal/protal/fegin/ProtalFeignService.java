@@ -3,6 +3,7 @@ package com.zab.mmal.protal.fegin;
 import com.zab.mmal.api.dtos.ProductDetails;
 import com.zab.mmal.api.entity.*;
 import com.zab.mmal.common.commons.ReturnData;
+import com.zab.mmal.common.enums.SysCodeMsg;
 import com.zab.mmal.protal.fegin.dtos.ProtalFeignFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -102,5 +103,17 @@ public interface ProtalFeignService {
 
     @PostMapping("payinfo/addPayInfo")
     ReturnData addPayInfo(@RequestBody MmallPayInfo payInfo);
+
+    @PostMapping("order/creatOrder/{userId}/{shippingId}")
+    ReturnData creatOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "shippingId") Integer shippingId);
+
+    @PostMapping("order/creatOrder/{userId}/{orderNo}")
+    ReturnData cancelOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
+
+    @GetMapping("order/getOrderCartProduct/{userId}")
+    ReturnData getOrderCartProduct(@PathVariable Integer userId);
+
+    @GetMapping("order/getOrderDetails/{userId}/{orderNo}")
+    ReturnData getOrderDetails(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
 
 }

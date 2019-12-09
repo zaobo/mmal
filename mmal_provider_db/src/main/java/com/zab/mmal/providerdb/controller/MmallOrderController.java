@@ -4,8 +4,10 @@ package com.zab.mmal.providerdb.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zab.mmal.api.entity.MmallOrder;
+import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.api.service.IMmallOrderService;
 import com.zab.mmal.common.commons.ReturnData;
+import com.zab.mmal.common.config.SessionAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +46,26 @@ public class MmallOrderController {
         UpdateWrapper<MmallOrder> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("order_no", order.getOrderNo());
         return new ReturnData(orderService.update(order, updateWrapper));
+    }
+
+    @PostMapping("creatOrder/{userId}/{shippingId}")
+    public ReturnData creatOrder(@PathVariable Integer userId, @PathVariable Integer shippingId) {
+        return new ReturnData(orderService.createOrder(userId, shippingId));
+    }
+
+    @PostMapping("cancelOrder/{userId}/{orderNo}")
+    public ReturnData cancelOrder(@PathVariable Integer userId, @PathVariable Long orderNo) {
+        return new ReturnData(orderService.cancelOrder(userId, orderNo));
+    }
+
+    @GetMapping("getOrderCartProduct/{userId}")
+    public ReturnData getOrderCartProduct(@PathVariable Integer userId) {
+        return new ReturnData(orderService.getOrderCartProduct(userId));
+    }
+
+    @GetMapping("getOrderDetails/{userId}/{orderNo}")
+    public ReturnData getOrderDetails(@PathVariable Integer userId, @PathVariable Long orderNo) {
+        return new ReturnData(orderService.getOrderDetails(userId, orderNo));
     }
 
 }

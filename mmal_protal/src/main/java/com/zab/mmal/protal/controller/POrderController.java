@@ -30,6 +30,13 @@ public class POrderController {
     @Autowired
     private DoPayFlow doPayClient;
 
+    /**
+     * 支付所选的订单
+     *
+     * @param request
+     * @param orderNo
+     * @return
+     */
     @GetMapping("pay/{orderNo}")
     public ReturnData pay(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
@@ -45,6 +52,7 @@ public class POrderController {
 
     /**
      * 支付宝回调接口，不需要登录
+     *
      * @param request
      * @return
      */
@@ -78,6 +86,13 @@ public class POrderController {
         return doPayClient.callBack(params);
     }
 
+    /**
+     * 查看订单支付状态
+     *
+     * @param request
+     * @param orderNo
+     * @return
+     */
     @GetMapping("getOrderPayStatus/{orderNo}")
     public ReturnData getOrderPayStatus(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
@@ -87,10 +102,55 @@ public class POrderController {
             return new ReturnData(SysCodeMsg.FAIL.getCode(), "没有查询到该订单:" + orderNo);
         }
 
-        if(order.getStatus()>= OrderSatus.PAID.getCode()){
+        if (order.getStatus() >= OrderSatus.PAID.getCode()) {
             return new ReturnData(true);
         }
 
         return new ReturnData(false);
     }
+
+    /**
+     * 创建订单
+     *
+     * @param request
+     * @param shippingId
+     * @return
+     */
+    @PostMapping("creatOrder/{shippingId}")
+    public ReturnData creatOrder(HttpServletRequest request, @PathVariable Integer shippingId) {
+        MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
+        return new ReturnData(protalFeignService.creatOrder(currentUser.getId(), shippingId));
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param request
+     * @param orderNo
+     * @return
+     */
+    @PostMapping("cancelOrder/{orderNo}")
+    public ReturnData cancelOrder(HttpServletRequest request, @PathVariable Long orderNo) {
+        MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
+        return new ReturnData(protalFeignService.cancelOrder(currentUser.getId(), orderNo));
+    }
+
+    /**
+     * 查询已勾选的购物车订单
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("getOrderCartProduct")
+    public ReturnData getOrderCartProduct(HttpServletRequest request) {
+        MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
+        return new ReturnData(protalFeignService.getOrderCartProduct(currentUser.getId()));
+    }
+
+    @GetMapping("getOrderDetails/{orderNo}")
+    public ReturnData getOrderDetails(HttpServletRequest request, @PathVariable Long orderNo) {
+        MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
+        return new ReturnData(protalFeignService.getOrderDetails(currentUser.getId(), orderNo));
+    }
+
 }

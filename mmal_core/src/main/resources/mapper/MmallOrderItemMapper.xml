@@ -7,14 +7,22 @@
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="order_no" property="orderNo" />
-        <result column=" product_id" property=" productId" />
+        <result column="product_id" property="productId" />
         <result column="product_name" property="productName" />
         <result column="product_image" property="productImage" />
         <result column="current_unit_price" property="currentUnitPrice" />
         <result column="quantity" property="quantity" />
         <result column="total_price" property="totalPrice" />
-        <result column=" create_time" property=" createTime" />
+        <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <insert id="batchInsert" parameterType="java.util.List" flushCache="true">
+        insert into mmall_order_item (id, user_id, order_no, product_id, product_name, product_image, current_unit_price, total_price) values
+        <foreach collection="orderItemList" item="item" index="index" separator=",">
+            (#{item.id, jdbcType=INTEGER}, #{item.userId, jdbcType=INTEGER}, #{item.orderNo, jdbcType=BIGINT}, #{item.productId, jdbcType=INTEGER},
+            #{item.productName, jdbcType=VARCHAR}, #{item.productImage, jdbcType=VARCHAR}, #{item.currentUnitPrice, jdbcType=DECIMAL},
+            #{item.quantity, jdbcType=INTEGER},#{item.totalPrice, jdbcType=DECIMAL})
+        </foreach>
+    </insert>
 </mapper>

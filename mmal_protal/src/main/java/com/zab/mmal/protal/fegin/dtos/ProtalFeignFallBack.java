@@ -141,5 +141,25 @@ public class ProtalFeignFallBack implements ProtalFeignService {
         return new ReturnData(SysCodeMsg.FAIL);
     }
 
+    @Override
+    public ReturnData creatOrder(Integer userId, Integer shippingId) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData cancelOrder(Integer userId, Long orderNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData getOrderCartProduct(Integer userId) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
+    @Override
+    public ReturnData getOrderDetails(Integer userId, Long orderNo) {
+        return new ReturnData(SysCodeMsg.FAIL);
+    }
+
 
 }
