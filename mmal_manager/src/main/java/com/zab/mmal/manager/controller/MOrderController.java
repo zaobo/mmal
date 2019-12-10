@@ -1,9 +1,7 @@
 package com.zab.mmal.manager.controller;
 
-import com.zab.mmal.api.entity.MmallUser;
 import com.zab.mmal.common.annotions.AdminOperate;
 import com.zab.mmal.common.commons.ReturnData;
-import com.zab.mmal.common.config.SessionAttribute;
 import com.zab.mmal.manager.feign.ManagerFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -26,7 +26,7 @@ public class CheckIsAdmin {
      * 定义切点 @Pointcut
      * 在注解的位置切入代码
      */
-    @Pointcut("@annotation(com.zab.mmal.common.annotions.AdminOperate)")
+    @Pointcut("@annotation(com.zab.mmal.common.annotions.AdminOperate)||@within(com.zab.mmal.common.annotions.AdminOperate)")
     public void isAdminCut() {
     }
 
@@ -45,10 +45,10 @@ public class CheckIsAdmin {
                     .getRequestAttributes()).getRequest();
             MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
             if (null == currentUser) {
-                throw new NoAuthException("无操作权限");
+                throw new NoAuthException("用户未登录");
             }
             if (!JudgeUtil.isDBEq(currentUser.getRole(), Constant.ROLE_ADMIN)) {
-                throw new NoAuthException("无操作权限");
+                throw new NoAuthException("不是管理员");
             }
         }
 
