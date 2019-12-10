@@ -107,11 +107,11 @@ public interface ProtalFeignService {
     @PostMapping("order/creatOrder/{userId}/{shippingId}")
     ReturnData creatOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "shippingId") Integer shippingId);
 
-    @PostMapping("order/creatOrder/{userId}/{orderNo}")
+    @PostMapping("order/cancelOrder/{userId}/{orderNo}")
     ReturnData cancelOrder(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);
 
     @GetMapping("order/getOrderCartProduct/{userId}")
-    ReturnData getOrderCartProduct(@PathVariable Integer userId);
+    ReturnData getOrderCartProduct(@PathVariable(value = "userId") Integer userId);
 
     @GetMapping("order/getOrderDetails/{orderNo}")
     ReturnData getOrderDetails(@RequestParam(required = false, value = "userId") Integer userId, @PathVariable(value = "orderNo") Long orderNo);

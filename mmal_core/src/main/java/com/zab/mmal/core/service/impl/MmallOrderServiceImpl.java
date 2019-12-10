@@ -101,13 +101,14 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
             throw new WrongArgumentException("用户:{}的订单:{}不存在", userId, orderNo);
         }
 
-        if (JudgeUtil.isDBEq(order.getStatus(), OrderSatus.NO_PAY.getCode())) {
+        if (JudgeUtil.isDBEq(order.getStatus(), OrderSatus.PAID.getCode())) {
             throw new WrongArgumentException("订单已付款，无法取消订单:{}", orderNo);
         }
 
         MmallOrder updateOrder = new MmallOrder();
         updateOrder.setStatus(OrderSatus.CANCELED.getCode());
         updateOrder.setId(order.getId());
+        updateOrder.setUpdateTime(new Date());
         return updateById(updateOrder);
     }
 
@@ -168,7 +169,7 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
         if (null != userId) {
             queryWrapper.eq("user_id", userId);
         }
-        Page page = new Page(pageNo, pageSize);
+        Page<MmallOrder> page = new Page<>(pageNo, pageSize);
         page.setDesc("create_time");
         Page<MmallOrder> orderPage = (Page<MmallOrder>) page(page, queryWrapper);
         List<OrderVo> orderVoList = assembleOrderVoList(userId, orderPage.getRecords());
@@ -196,7 +197,7 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
             order.setStatus(OrderSatus.SHIPPED.getCode());
             Date date = new Date();
             order.setSendTime(date);
-            order.setCreateTime(date);
+            order.setUpdateTime(date);
             return updateById(order);
         }
         return false;
@@ -289,6 +290,7 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
         for (MmallOrderItem orderItem : orderItemList) {
             MmallProduct product = productMapper.selectById(orderItem.getProductId());
             product.setStock(product.getStock() - orderItem.getQuantity());
+            product.setUpdateTime(new Date());
             productMapper.updateById(product);
         }
     }
@@ -303,10 +305,9 @@ public class MmallOrderServiceImpl extends ServiceImpl<MmallOrderMapper, MmallOr
         order.setShippingId(shippingId);
         order.setPaymentType(PayMentType.ONLINE_PAY.getCode());
         order.setUserId(userId);
-        if (save(order)) {
-            return order;
-        }
-        return null;
+
+        save(order);
+        return order;
     }
 
     private synchronized long generatorOrderNo() {

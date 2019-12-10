@@ -87,6 +87,6 @@ public class MmallShippingServiceImpl extends ServiceImpl<MmallShippingMapper, M
             }
         }
 
-        return (Page<MmallShipping>) page(new Page<>(pageNo, pageSize), queryWrapper);
+        return (Page<MmallShipping>) page(new Page<MmallShipping>(pageNo, pageSize), queryWrapper);
     }
 }

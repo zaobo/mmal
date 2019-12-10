@@ -20,32 +20,32 @@ public class PShippingController {
     public ReturnData addShipping(HttpServletRequest request, @RequestBody MmallShipping shipping) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
         shipping.setUserId(currentUser.getId());
-        return new ReturnData(protalFeignService.addShipping(shipping));
+        return protalFeignService.addShipping(shipping);
     }
 
     @PostMapping("updateShipping")
     public ReturnData updateShipping(HttpServletRequest request, @RequestBody MmallShipping shipping) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
         shipping.setUserId(currentUser.getId());
-        return new ReturnData(protalFeignService.updateShipping(shipping));
+        return protalFeignService.updateShipping(shipping);
     }
 
     @PostMapping("deleteShipping/{shippingId}")
     public ReturnData deleteShipping(HttpServletRequest request, @PathVariable Integer shippingId) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.deleteShipping(currentUser.getId(), shippingId));
+        return protalFeignService.deleteShipping(currentUser.getId(), shippingId);
     }
 
     @GetMapping("getShipping/{shippingId}")
     public ReturnData getShipping(HttpServletRequest request, @PathVariable Integer shippingId) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.getShipping(currentUser.getId(), shippingId));
+        return protalFeignService.getShipping(currentUser.getId(), shippingId);
     }
 
     @PostMapping("pageShipping")
-    public ReturnData pageShipping(HttpServletRequest request, @RequestParam Integer pageSize,
-                                   @RequestParam Integer pageNo, @RequestBody(required = false) MmallShipping shipping) {
+    public ReturnData pageShipping(HttpServletRequest request, @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                   @RequestParam(required = false, defaultValue = "1") Integer pageNo, @RequestBody(required = false) MmallShipping shipping) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.pageShipping(currentUser.getId(), pageSize, pageNo, shipping));
+        return protalFeignService.pageShipping(currentUser.getId(), pageSize, pageNo, shipping);
     }
 }

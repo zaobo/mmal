@@ -119,7 +119,7 @@ public class POrderController {
     @PostMapping("creatOrder/{shippingId}")
     public ReturnData creatOrder(HttpServletRequest request, @PathVariable Integer shippingId) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.creatOrder(currentUser.getId(), shippingId));
+        return protalFeignService.creatOrder(currentUser.getId(), shippingId);
     }
 
     /**
@@ -132,7 +132,7 @@ public class POrderController {
     @PostMapping("cancelOrder/{orderNo}")
     public ReturnData cancelOrder(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.cancelOrder(currentUser.getId(), orderNo));
+        return protalFeignService.cancelOrder(currentUser.getId(), orderNo);
     }
 
     /**
@@ -144,20 +144,20 @@ public class POrderController {
     @GetMapping("getOrderCartProduct")
     public ReturnData getOrderCartProduct(HttpServletRequest request) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.getOrderCartProduct(currentUser.getId()));
+        return protalFeignService.getOrderCartProduct(currentUser.getId());
     }
 
     @GetMapping("getOrderDetails/{orderNo}")
     public ReturnData getOrderDetails(HttpServletRequest request, @PathVariable Long orderNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.getOrderDetails(currentUser.getId(), orderNo));
+        return protalFeignService.getOrderDetails(currentUser.getId(), orderNo);
     }
 
     @GetMapping("pageOrder")
     public ReturnData pageOrder(HttpServletRequest request, @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(required = false, defaultValue = "1") Integer pageNo) {
         MmallUser currentUser = SessionAttribute.currentUser(request.getSession());
-        return new ReturnData(protalFeignService.pageOrder(currentUser.getId(), pageSize, pageNo));
+        return protalFeignService.pageOrder(currentUser.getId(), pageSize, pageNo);
     }
 
 }
