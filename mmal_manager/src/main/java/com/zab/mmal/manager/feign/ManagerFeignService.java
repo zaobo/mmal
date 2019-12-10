@@ -46,7 +46,7 @@ public interface ManagerFeignService {
     ReturnData pageOrder(@RequestParam(required = false, value = "userId") Integer userId, @RequestParam(value = "pageSize") Integer pageSize,
                          @RequestParam(value = "pageNo") Integer pageNo);
 
-    @GetMapping("order/sendGoods/{orderNo}")
+    @PostMapping("order/sendGoods/{orderNo}")
     ReturnData sendGoods(@PathVariable(value = "orderNo") Long orderNo);
 
 }

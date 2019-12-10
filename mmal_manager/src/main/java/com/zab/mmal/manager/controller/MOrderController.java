@@ -19,17 +19,17 @@ public class MOrderController {
     @GetMapping("pageOrder")
     public ReturnData pageOrder(HttpServletRequest request, @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(required = false, defaultValue = "1") Integer pageNo) {
-        return new ReturnData(managerFeignService.pageOrder(null, pageSize, pageNo));
+        return managerFeignService.pageOrder(null, pageSize, pageNo);
     }
 
     @GetMapping("getOrderDetails/{orderNo}")
     public ReturnData getOrderDetails(HttpServletRequest request, @PathVariable Long orderNo) {
-        return new ReturnData(managerFeignService.getOrderDetails(null, orderNo));
+        return managerFeignService.getOrderDetails(null, orderNo);
     }
 
     @PostMapping("sendGoods/{orderNo}")
     public ReturnData sendGoods(HttpServletRequest request, @PathVariable Long orderNo) {
-        return new ReturnData(managerFeignService.sendGoods(orderNo));
+        return managerFeignService.sendGoods(orderNo);
     }
 
 }
