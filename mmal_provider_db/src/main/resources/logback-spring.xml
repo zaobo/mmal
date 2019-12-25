@@ -67,12 +67,6 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <!-- 请求日志 -->
-    <logger name="com.zxgeo.maew.frame.zuul.filters.HsedResponseFilter" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="requestAppender"/>
-    </logger>
-
     <root level="${loglevel}">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DailyAndSizeRollAppender"/>
