@@ -38,7 +38,7 @@
         <commons-codec>1.10</commons-codec>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <feign-core>10.1.0</feign-core>
-        <jackson-databind>2.9.8</jackson-databind>
+        <jackson-databind>2.9.10.7</jackson-databind>
         <session-redis>2.1.5.RELEASE</session-redis>
         <hystrix>1.2.7.RELEASE</hystrix>
     </properties>
