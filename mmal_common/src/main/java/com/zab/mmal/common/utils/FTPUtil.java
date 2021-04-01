@@ -22,15 +22,6 @@ public class FTPUtil {
     private FtpConfiguration ftpConfiguration;
     private FTPClient ftpClient;
 
-    public FTPClient getFtpClient() {
-        return ftpClient;
-    }
-
-    public void setFtpClient(FTPClient ftpClient) {
-        this.ftpClient = ftpClient;
-    }
-
-
     public boolean uploadFile(String remotePath, List<File> fileList) throws IOException {
         boolean uploaded = true;
         FileInputStream fis = null;
