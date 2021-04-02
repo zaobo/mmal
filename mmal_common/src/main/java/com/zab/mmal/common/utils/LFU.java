@@ -87,7 +87,6 @@ public class LFU<K, V> {
         lfu.get(1);
         lfu.get(2);
         lfu.get(2);
-        lfu.get(2);
         lfu.get(1);
         lfu.get(3);
         lfu.put(4, 4);
