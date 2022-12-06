@@ -22,7 +22,7 @@
         <mybatis-spring>2.0.0</mybatis-spring>
         <common-lang>2.6</common-lang>
         <joda-time>2.3</joda-time>
-        <commons-net>3.6</commons-net>
+        <commons-net>3.9.0</commons-net>
         <commons-fileupload>1.2.2</commons-fileupload>
         <mysql-connector>5.1.46</mysql-connector>
         <fastjson>1.2.56</fastjson>
